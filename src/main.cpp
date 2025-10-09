@@ -13,30 +13,27 @@ using namespace vex;
 // A global instance of vex::brain used for printing to the IQ2 brain screen
 vex::brain Brain;
 
-Motor dtLeftMotor(PORT1);
-DistanceSensor dist(PORT3);
+Motor dtLeftMotor(PORT1, vex::reverse);
+Motor dtRightMotor(PORT6); // reversed
+DistanceSensor dist(PORT4);
 
-PID pid(0.4, -0.05, 0.00, 100);
+PID pid(0.5, 0.02, 0.5, 150);
 
 int main() {
-  Brain.Screen.printAt(2, 30, "Hello IQ2");
-
-  int as = 0;
-  
   while (1) {
     // Allow other tasks to run
     this_thread::sleep_for(10);
+
+    dist.Tick();
     dtLeftMotor.Tick();
+    dtRightMotor.Tick();
 
-    dtLeftMotor.SetSpeed(pid.Calculate(dtLeftMotor.GetRotation()));
+    Brain.Screen.clearLine(1);
+    Brain.Screen.clearLine(2);
+    Brain.Screen.printAt(2, 30, "%d", pid.getMaxki());
 
-    as += 5;
-
-    if (as % 400 == 0) {
-      pid.setTarget(0);
-    } else if (as % 400 == 200) {
-      pid.setTarget(300);
-    }
+    dtLeftMotor.SetSpeed(pid.Calculate(dist.GetDistance()));
+    dtRightMotor.SetSpeed(pid.Calculate(dist.GetDistance()));
 
     wait(20, msec);
   }

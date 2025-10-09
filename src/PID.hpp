@@ -10,11 +10,15 @@ private:
     double kd;
     double target;
 
+    double maxki = 0.0;
+
     double currentValue;
 
 public:
     PID(double kp, double ki, double kd, double target)
-        : kp_(kp), ki_(ki), kd_(kd), target_(target), previous_error_(0), integral_(0) {}
+        : kp_(kp), ki_(ki), kd_(kd), target_(target), previous_error_(0), integral_(0) {
+            maxki = 50.0/ki; //maximum motor speed is 50, so with the maximum integral, this means the max motor speed movement from the integral is 50
+        }
 
     double Calculate(double measured_value)
     {
@@ -30,11 +34,11 @@ public:
         {
             integral_ = 0.0;
         }
-        if (integral_ > 100)
+        if (integral_ > abs(maxki))
         {
             integral_ = 100;
         }
-        else if (integral_ < -100)
+        else if (integral_ < -abs(maxki))
         {
             integral_ = -100;
         }
@@ -74,6 +78,10 @@ public:
     double getCurrentValue()
     {
         return currentValue;
+    }
+
+    double getMaxki() {
+        return 100;
     }
 
 private:
