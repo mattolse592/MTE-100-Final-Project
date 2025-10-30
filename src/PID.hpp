@@ -81,7 +81,7 @@ public:
     }
 
     double getMaxki() {
-        return 100;
+        return 100.0;
     }
 
 private:

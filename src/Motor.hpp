@@ -17,16 +17,17 @@ public:
     Motor(char PortNum, vex::directionType Direction = vex::forward) 
     : Motor_(PortNum), Direction_(Direction)
     {
+        Motor_.setStopping(vex::brakeType::hold);
     }
 
-    void Tick() {
-        Motor_.spin(Direction_, MotorSpeed_, vex::percentUnits::pct);
+    void InputTick() {
+        
         MotorLocation_ = Motor_.position(vex::rotationUnits::deg);
     }
 
     void SetSpeed(int motorSpeed) {
-        // values from -100 to 100
-        MotorSpeed_ = motorSpeed;
+        MotorSpeed_ = motorSpeed; // values from -100 to 100
+        Motor_.spin(Direction_, MotorSpeed_, vex::percentUnits::pct);
     }
 
     void Stop() {

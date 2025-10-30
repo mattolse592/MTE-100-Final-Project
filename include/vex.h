@@ -14,7 +14,9 @@
 #include "../src/DistanceSensor.hpp"
 #include "../src/PID.hpp"
 #include "../src/OpticalSensor.hpp"
+#include "../src/Robot.hpp"
 
+extern vex::controller master;
 
 #endif
 
