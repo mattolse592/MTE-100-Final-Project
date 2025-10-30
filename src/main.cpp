@@ -12,12 +12,15 @@ using namespace vex;
 
 Brain robot;
 
+vex::brain Brain_;
+
 int main() {
   while (1) {
     // Allow other tasks to run
     this_thread::sleep_for(10);
 
     robot.Tick();
+    Brain_.Screen.print("Hello, VEX IQ2!");
 
     wait(10, msec);
   }
