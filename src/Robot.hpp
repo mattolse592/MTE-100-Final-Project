@@ -15,7 +15,7 @@ DistanceSensor dist_;
 
 public:
     Robot() 
-    :   dtLeftMotor_(PORT1),
+    :   dtLeftMotor_(PORT1, reverse),
         dtRightMotor_(PORT6),
         dist_(PORT4)
     {}
@@ -29,5 +29,5 @@ public:
 
     void OutputTick() {
 
-     }
+    }
 };

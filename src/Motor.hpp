@@ -40,4 +40,8 @@ public:
         }
         return MotorLocation_;
     }
+
+    double GetSpeed() {
+        return MotorSpeed_;
+    }   
 };

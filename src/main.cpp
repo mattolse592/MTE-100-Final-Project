@@ -6,22 +6,28 @@
 /*    Description:  IQ2 project                                               */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
-#include "Brain.hpp"
+#include "AutonBrain.hpp"
 
 using namespace vex;
 
-Brain robot;
+AutonBrain robot;
 
-vex::brain Brain_;
+void BrainTick() {
+  while (true) {
+    robot.Tick();
+    this_thread::sleep_for(10);
+  }
+}
 
 int main() {
-  while (1) {
-    // Allow other tasks to run
-    this_thread::sleep_for(10);
+  thread mythread = thread(BrainTick);
 
-    robot.Tick();
-    Brain_.Screen.print("Hello, VEX IQ2!");
-
-    wait(10, msec);
-  }
+  robot.drivePid_.setTarget(300);  // set target distance
+  robot.drivePid_.wait_steady();
+  robot.drivePid_.setTarget(450);  // set target distance
+  robot.drivePid_.wait_steady();
+  robot.drivePid_.setTarget(300);  // set target distancesssssssssssssssssssssssssssssssssssss
+  robot.drivePid_.wait_steady(); 
+  robot.drivePid_.setTarget(450);  
+  robot.drivePid_.wait_steady(); 
 }
