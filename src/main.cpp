@@ -22,12 +22,17 @@ void BrainTick() {
 int main() {
   thread mythread = thread(BrainTick);
 
-  robot.drivePid_.setTarget(300);  // set target distance
-  robot.drivePid_.wait_steady();
-  robot.drivePid_.setTarget(450);  // set target distance
-  robot.drivePid_.wait_steady();
-  robot.drivePid_.setTarget(300);  // set target distancesssssssssssssssssssssssssssssssssssss
-  robot.drivePid_.wait_steady(); 
-  robot.drivePid_.setTarget(450);  
-  robot.drivePid_.wait_steady(); 
+  while (true) {
+    if (robot.Brain_.buttonLeft.pressing()) {
+      robot.Robot_.slideMotor_.MoveTo(100);
+    }
+    if (robot.Brain_.buttonRight.pressing()) {
+      robot.Robot_.slideMotor_.MoveTo(200);
+    }
+    if (robot.Brain_.buttonCheck.pressing()) {
+      robot.Robot_.slideMotor_.Zero();
+    }
+//ssss
+    wait(10, msec);
+  }
 }
