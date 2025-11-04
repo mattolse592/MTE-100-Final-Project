@@ -10,7 +10,7 @@ class LinearSlide {
   int MotorSpeed_ = 0;
   bool PIDActive_ = false;
 
- public:    
+ public:
   Motor Motor_;
 
   LinearSlide(Motor Motor, PID PID) : Motor_(Motor), PID_(PID) {}
@@ -19,6 +19,11 @@ class LinearSlide {
     Motor_.InputTick();
     if (PIDActive_) {
       MotorSpeed_ = PID_.Calculate(Motor_.GetRotation());
+    } else {
+      if (!Motor_.ZeroMode_) {
+        PIDActive_ = true;
+        MoveTo(0);
+      }
     }
   }
 
@@ -36,7 +41,7 @@ class LinearSlide {
     PID_.setTarget(position);
   }
 
-  void Zero()  {
+  void Zero() {
     PIDActive_ = false;
     Motor_.Zero();
   }

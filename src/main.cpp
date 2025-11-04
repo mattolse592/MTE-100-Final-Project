@@ -25,14 +25,17 @@ int main() {
   while (true) {
     if (robot.Brain_.buttonLeft.pressing()) {
       robot.Robot_.slideMotor_.MoveTo(100);
+      robot.Robot_.slideMotor2_.MoveTo(100);
     }
     if (robot.Brain_.buttonRight.pressing()) {
       robot.Robot_.slideMotor_.MoveTo(200);
+      robot.Robot_.slideMotor2_.MoveTo(200);
     }
     if (robot.Brain_.buttonCheck.pressing()) {
       robot.Robot_.slideMotor_.Zero();
+      robot.Robot_.slideMotor2_.Zero();
     }
-//ssss
+//ssssssssssssssssssssssssss
     wait(10, msec);
   }
 }

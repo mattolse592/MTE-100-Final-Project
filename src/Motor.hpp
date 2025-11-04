@@ -3,7 +3,7 @@
 #include "iq2_cpp.h"
 
 class Motor {
- private:
+ public:
   int MotorSpeed_ = 0;
   double MotorLocation_ = 0;
 
@@ -24,20 +24,26 @@ class Motor {
     MotorLocation_ = Motor_.position(vex::rotationUnits::deg);
 
     if (ZeroMode_) {
-      if (Motor_.velocity(vex::velocityUnits::pct) < ZERO_SPEED / 10) {
-        Motor_.stop();
+      if (Motor_.velocity(vex::velocityUnits::pct) < ZERO_SPEED / 10 && Motor_.current() > 0.5) {
         Motor_.setPosition(0, vex::rotationUnits::deg);
         ZeroMode_ = false;
+        Stop();
       }
     }
   }
 
   void SetSpeed(int motorSpeed) {
-    if (!ZeroMode_) {
+    if (ZeroMode_) {
+      if (Direction_ == vex::reverse) {
+        Motor_.spin(vex::directionType::fwd, ZERO_SPEED, vex::percentUnits::pct);
+      }
+      else {
+        Motor_.spin(vex::directionType::rev, ZERO_SPEED, vex::percentUnits::pct);
+      }
+
+    } else {
       MotorSpeed_ = motorSpeed;  // values from -100 to 100
       Motor_.spin(Direction_, MotorSpeed_, vex::percentUnits::pct);
-    } else {
-        Motor_.spin(vex::directionType::rev, ZERO_SPEED, vex::percentUnits::pct);
     }
   }
 
