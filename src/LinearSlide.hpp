@@ -45,4 +45,14 @@ class LinearSlide {
     PIDActive_ = false;
     Motor_.Zero();
   }
+
+  void wait_steady() {
+    PID_.wait_steady();
+  }
+
+  void wait_zero() {
+    while (Motor_.ZeroMode_) {
+      wait(20, vex::msec);
+    }
+  }
 };

@@ -8,7 +8,7 @@ class Motor {
   double MotorLocation_ = 0;
 
   bool ZeroMode_ = false;
-  const int ZERO_SPEED = 50;
+  const int ZERO_SPEED = 75;
 
   vex::directionType Direction_ = vex::forward;
 
@@ -24,7 +24,7 @@ class Motor {
     MotorLocation_ = Motor_.position(vex::rotationUnits::deg);
 
     if (ZeroMode_) {
-      if (Motor_.velocity(vex::velocityUnits::pct) < ZERO_SPEED / 10 && Motor_.current() > 0.5) {
+      if (Motor_.velocity(vex::velocityUnits::pct) < ZERO_SPEED / 10 && Motor_.current() > 0.3) {
         Motor_.setPosition(0, vex::rotationUnits::deg);
         ZeroMode_ = false;
         Stop();
