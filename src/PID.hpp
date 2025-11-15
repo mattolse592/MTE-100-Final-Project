@@ -13,7 +13,9 @@ class PID {
   double kp_, ki_, kd_;    // PID gains
   double target_;          // Target position in degrees
   double previous_error_;  // Previous loop error for derivative
+  double prev_prev_error_; // Error before previous for pid_wait
   double integral_;        // Cumulative sum for integral
+  double error_;
 
  public:
   PID(double kp, double ki, double kd, double target)
@@ -22,13 +24,13 @@ class PID {
 
   double Calculate(double measured_value) {
     // Calculate the error
-    double error = target_ - measured_value;
+    error_ = target_ - measured_value;
 
     // Proportional term
-    double proportional = kp_ * error;
+    double proportional = kp_ * error_;
 
     // Integral term
-    integral_ += error;
+    integral_ += error_;
     if (integral_ > abs(maxki)) {
       integral_ = maxki;
     } else if (integral_ < -abs(maxki)) {
@@ -37,8 +39,10 @@ class PID {
     double integral = ki_ * integral_;
 
     // Derivative term
-    double derivative = kd_ * (error - previous_error_);
-    previous_error_ = error;
+    double derivative = kd_ * (error_ - previous_error_);
+    prev_prev_error_ = previous_error_;
+    previous_error_ = error_;
+
 
     // PID output
     double output = proportional + integral + derivative;
@@ -75,6 +79,6 @@ class PID {
   void wait_steady() {
     do {
       wait(20, vex::msec);
-    } while (fabs(currentValue) > 2.0 || fabs(previous_error_) > 2.0);
+    } while (fabs(currentValue) > 2.0 || fabs(error_ - prev_prev_error_) > 0.05 || fabs(error_) > 1.0);
   }
 };

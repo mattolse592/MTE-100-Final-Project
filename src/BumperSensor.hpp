@@ -11,10 +11,10 @@ public:
     BumperSensor(char PortNum) : BumperSensor_{ PortNum } {}
 
     void Tick() {
-        Pressed_ = BumperSensor_.value();
+        Pressed_ = BumperSensor_.pressing();
     }
 
-    double GetPressed(){
+    bool Pressed(){
         return Pressed_;
     }
 };

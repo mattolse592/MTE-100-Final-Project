@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vex.h"
+#include "PancakeRobot.hpp"
 
 class AutonBrain {
  public:
@@ -14,6 +14,10 @@ class AutonBrain {
   void Tick() {
     Robot_.InputTick();    
 
+    if (Robot_.BumperSensor_.Pressed()) {
+      Brain_.playSound(vex::soundType::wrongWaySlow);
+      Brain_.programStop();
+    }
     Robot_.OutputTick();
   }
 };

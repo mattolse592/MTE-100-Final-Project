@@ -16,7 +16,9 @@
 #include "../src/OpticalSensor.hpp"
 #include "../src/Robot.hpp"
 #include "../src/LinearSlide.hpp"
-#include "../src/PancakeRobot.hpp"
+#include "../src/Flipper.hpp"
+#include "../src/TouchLED.hpp"
+#include "../src/BumperSensor.hpp"
 
 extern vex::controller master;
 
