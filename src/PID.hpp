@@ -79,6 +79,6 @@ class PID {
   void wait_steady() {
     do {
       wait(20, vex::msec);
-    } while (fabs(currentValue) > 2.0 || fabs(error_ - prev_prev_error_) > 0.05 || fabs(error_) > 1.0);
+    } while (fabs(currentValue) > 3.0 || fabs(error_ - prev_prev_error_) > 0.05 || fabs(error_) > 3.0);
   }
 };
