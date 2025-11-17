@@ -8,7 +8,7 @@ class Motor {
   double MotorLocation_ = 0;
 
   bool ZeroMode_ = false;
-  const int ZERO_SPEED = 75;
+  const int ZERO_SPEED = 95;
 
   vex::directionType Direction_ = vex::forward;
 
@@ -17,7 +17,7 @@ class Motor {
  public:
   Motor(char PortNum, vex::directionType Direction = vex::forward)
       : Motor_(PortNum), Direction_(Direction) {
-    Motor_.setStopping(vex::brakeType::hold);
+    Motor_.setStopping(vex::brakeType::brake);
   }
 
   void InputTick() {
@@ -61,6 +61,10 @@ class Motor {
     }
     return MotorLocation_;
   }
+
+  double getCurrent() {
+    return Motor_.current();
+  } 
 
   double GetSpeed() {
     return MotorSpeed_;

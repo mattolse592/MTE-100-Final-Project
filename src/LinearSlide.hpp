@@ -9,11 +9,14 @@ class LinearSlide {
 
   int MotorSpeed_ = 0;
   bool PIDActive_ = false;
+  double degToMM_ = 0.0;  // conversion factor from degrees to mm
 
  public:
   Motor Motor_;
 
-  LinearSlide(Motor Motor, PID PID) : Motor_(Motor), PID_(PID) {}
+  LinearSlide(Motor Motor, PID PID, double maxDegrees, double length) : Motor_(Motor), PID_(PID) {
+    degToMM_ = maxDegrees / length;
+  }
 
   void InputTick() {
     Motor_.InputTick();
@@ -21,8 +24,7 @@ class LinearSlide {
       MotorSpeed_ = PID_.Calculate(Motor_.GetRotation());
     } else {
       if (!Motor_.ZeroMode_) {
-        PIDActive_ = true;
-        MoveTo(0);
+        MotorSpeed_ = 0;
       }
     }
   }
@@ -36,9 +38,9 @@ class LinearSlide {
     MotorSpeed_ = 0;
   }
 
-  void MoveTo(int position) {
+  void MoveTo(double position) {
     PIDActive_ = true;
-    PID_.setTarget(position);
+    PID_.setTarget(position * degToMM_);
   }
 
   void Zero() {
