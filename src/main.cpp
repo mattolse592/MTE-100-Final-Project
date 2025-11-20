@@ -106,9 +106,6 @@ int main() {
 
 #pragma region test
 
-
-
-
 r->x.MoveTo(176.99);
 r->y.MoveTo(194.13);
 wait(1000, msec);
@@ -298,29 +295,6 @@ wait(20, msec);
 
 
 #pragma endregion
-
-  // double centerX = 450;  // mid of your 100–1200 range
-  // double centerY = 500;  // mid of your 100–1000 range
-  // double radius = 400;   // safe radius inside your bounds
-  // double step = 0.05;    // radians per loop (smaller = smoother)
-
-  // #pragma region CircleMovement
-  // while (true) {
-  //   for (double theta = 0; theta < 2 * M_PI; theta += step) {
-  //     double x = centerX + radius * cos(theta);
-  //     double y = centerY + radius * sin(theta);s
-
-  //     r->x.MoveTo(x);
-  //     r->y.MoveTo(y);
-  //     r->z.MoveTo(x/3 + 400);
-
-  //     // optional: wait for both axes to reach the point
-  //     wait(40, vex::msec);
-  //   }
-  // }
-  // #pragma endregion
-
-  // TODO make move to function in inches or cm for linear slidesss
 
   // prototype pancake autonomous full movements, plating, flipping, and
   // dispensing

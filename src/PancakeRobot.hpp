@@ -17,7 +17,7 @@ class PancakeRobot {
  public:
   PancakeRobot()
       : x(Motor(PORT1, reverse), PID(0.9, 0.0, 1, 0), 1100, 269),
-        y(Motor(PORT2), PID(0.9, 0.0, 1, 0), 1500, 310),
+        y(Motor(PORT2), PID(0.9, 0.0, 1, 0), 1500, 270),
         z(Motor(PORT3, reverse), PID(0.9, 0.0, 1, 0), 820, 200),
         flipper(Motor(PORT7, reverse), PID(1.6, 0.0, 7, 0)),
         TouchLED_(PORT9),
